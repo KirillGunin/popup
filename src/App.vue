@@ -1,8 +1,22 @@
 <template>
-  <div id="app">
-
+  <div>
+    <div class="py-10 p-20">
+      <HomeView/>
+    </div>
   </div>
 </template>
+
+<script>
+  import HomeView from "./views/HomeView.vue";
+  export default {
+  components: { HomeView },
+    data() {
+      return {
+
+      }
+    }
+  }
+</script>
 
 <style lang="scss">
 #app {
@@ -11,18 +25,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>

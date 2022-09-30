@@ -1,13 +1,79 @@
 <template>
-  <div class="home">
+  <div >
+    <button
+    class="text-white rounded bg-[#3b82f6] px-4 py-1"
+    @click="switchModal = !switchModal">Заказать в Москву
+    </button>
+
+    <div class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+    v-if="switchModal">
+      <div class="relative mx-auto w-auto flex justify-center items-center">
+        <!-- Форма -->
+        <form class="bg-white h-auto p-6 rounded" action="">
+          <h2 class="m-3 text-3xl">Заказать звонок</h2>
+          <div class="flex justify-end items-center flex-wrap">
+            <!-- Имя -->
+            <div class="mb-4 mx-3">
+              <div class="flex">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Имя</label>
+                <p>*</p>
+              </div>
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Иван Иванов">
+            </div>
+            <!-- Телефон -->
+            <div class="mb-4 mx-3">
+              <div class="flex">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Телефон</label>
+                <p>*</p>
+              </div>
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="+7 (___) ___-__-__">
+            </div>
+            <!-- Почта -->
+            <div class="mb-4 mx-3">
+              <div class="flex">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Email</label>
+                <p>*</p>
+              </div>
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="you@example.com">
+            </div>
+            <!-- Селектор -->
+            <div class="mb-4 mx-3">
+              <div class="flex">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Город</label>
+                <p>*</p>
+              </div>
+              <select class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="">
+                <option value="">Москва</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex justify-end items-center flex-wrap">
+            <button class="bg-[#4ca44b] hover:bg-blue-700 text-white font-light text-lg py-2 px-4 mx-3 w-44 h-10 rounded focus:outline-none focus:shadow-outline flex justify-center items-center" type="button">
+              Отправить
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div
+    v-if="switchModal"
+    class="absolute z-40 inset-0 opacity-25 bg-black">
+    </div>
 
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
-  name: 'HomeView',
+  name: 'modal',
+  data() {
+    return {
+      switchModal: false
+    }
+  }
 }
 </script>
