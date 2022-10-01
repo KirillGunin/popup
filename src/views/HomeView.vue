@@ -9,7 +9,9 @@
     v-if="switchModal">
       <div class="relative mx-auto w-auto flex justify-center items-center">
         <!-- Форма -->
-        <form class="bg-white h-auto p-6 rounded" action="">
+        <form
+        @submit.prevent="submitFirstForm"
+        class="bg-white h-auto p-6 rounded">
           <h2 class="m-3 text-3xl">Заказать звонок</h2>
           <div class="flex justify-end items-center flex-wrap">
             <!-- Имя -->
@@ -18,7 +20,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Имя</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Иван Иванов">
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="name" type="text" placeholder="Иван Иванов">
             </div>
             <!-- Телефон -->
             <div class="mb-4 mx-3">
@@ -26,7 +28,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Телефон</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="+7 (___) ___-__-__">
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="phone" type="text" placeholder="+7 (___) ___-__-__">
             </div>
             <!-- Почта -->
             <div class="mb-4 mx-3">
@@ -34,7 +36,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Email</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="you@example.com">
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="email" type="text" placeholder="you@example.com">
             </div>
             <!-- Селектор -->
             <div class="mb-4 mx-3">
@@ -42,18 +44,17 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Город</label>
                 <p>*</p>
               </div>
-              <select class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="">
+              <select v-model="city_id" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="">
                 <option value="">Москва</option>
               </select>
             </div>
           </div>
 
           <div class="flex justify-end items-center flex-wrap">
-            <button class="bg-[#4ca44b] hover:bg-blue-700 text-white font-light text-lg py-2 px-4 mx-3 w-44 h-10 rounded focus:outline-none focus:shadow-outline flex justify-center items-center" type="button">
+            <button class="bg-[#4ca44b] hover:bg-blue-700 text-white font-light text-lg py-2 px-4 mx-3 w-44 h-10 rounded focus:outline-none focus:shadow-outline flex justify-center items-center" type="submit">
               Отправить
             </button>
           </div>
-
         </form>
       </div>
     </div>
@@ -67,12 +68,31 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: 'modal',
   data() {
     return {
-      switchModal: false
+      switchModal: false,
+      name: '',
+      phone: '',
+      email: '',
+      city_id: 1
+    }
+  },
+  methods: {
+    submitFirstForm() {
+      axios
+      .post('http://hh.autodrive-agency.ru/test-tasks/front/task-7/', {
+        name: this.name,
+        phone: this.phone,
+        email: this.email,
+        city_id: this.city_id
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      this.switchModal = false
     }
   }
 }
