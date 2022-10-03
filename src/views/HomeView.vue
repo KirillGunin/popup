@@ -40,7 +40,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Телефон</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="phone" type="text" placeholder="+7 (___) ___-__-__">
+              <masked-inpit mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="phone" type="text" placeholder="+7 (___) ___-__-__"/>
             </div>
             <!-- Почта -->
             <div class="mb-4 mx-3">
@@ -81,15 +81,20 @@
     class="absolute z-40 inset-0 opacity-25 bg-black">
     </div>
 
-    <div v-html="resp" v-if="resp"></div>
+    <div
+    class="relative mx-auto w-auto flex justify-center items-center"
+    v-html="resp" v-if="resp">
+    </div>
 
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import MaskedInpit from 'vue-masked-input'
 export default {
   name: 'modal',
+  components: {MaskedInpit},
   data() {
     return {
       switchModal: false,
@@ -115,7 +120,7 @@ export default {
       axios
       .post('http://hh.autodrive-agency.ru/test-tasks/front/task-7/', {
         name: this.name,
-        phone: this.phone,
+        phone: this.phone.replace(/[^\d\+]/g, ''),
         email: this.email,
         city_id: this.city_id
       })
