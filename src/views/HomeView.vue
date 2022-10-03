@@ -1,10 +1,22 @@
 <template>
   <div >
-    <button
+    <!-- <button
     class="text-white rounded bg-[#3b82f6] px-4 py-1"
     @click="switchModal = !switchModal">Заказать в Москву
-    </button>
+    </button> -->
 
+    <!-- Кнопки -->
+    <div class="flex flex-row">
+      <div v-for="button in buttons" :key="button.id">
+        <button
+        @click="switchModal = !switchModal"
+        class="text-white rounded bg-[#409488] hover:bg-[#3b82f6] px-4 py-1 m-2.5"
+        
+        >Заказать в {{button.name}}</button>
+      </div>
+    </div>
+
+    <!-- Модальное окно с формой -->
     <div class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
     v-if="switchModal">
       <div class="relative mx-auto w-auto flex justify-center items-center">
@@ -44,8 +56,13 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Город</label>
                 <p>*</p>
               </div>
-              <select v-model="city_id" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="">
+              <!-- <select v-model="city_id" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="">
                 <option value="">Москва</option>
+              </select> -->
+
+              <select name="city_id" id="city_id" v-model="city_id"
+              class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <option v-for="city in cities" :value="city.value" :key="city.id">{{city.id}}</option>
               </select>
             </div>
           </div>
@@ -74,10 +91,20 @@ export default {
   data() {
     return {
       switchModal: false,
+      buttons: [
+        {id: 1, name: 'Москве'},
+        {id: 2, name: 'Санкт-Петербурге'}
+      ],
+      cities: [
+        { id: 'Москва', value: 1 },
+        { id: 'Санкт-Петербург', value: 2 },
+        { id: 'Казань', value: 3 }
+
+      ],
       name: '',
       phone: '',
       email: '',
-      city_id: 1
+      city_id: ''
     }
   },
   methods: {
