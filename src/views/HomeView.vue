@@ -81,6 +81,8 @@
     class="absolute z-40 inset-0 opacity-25 bg-black">
     </div>
 
+    <div v-html="resp" v-if="resp"></div>
+
   </div>
 </template>
 
@@ -91,6 +93,7 @@ export default {
   data() {
     return {
       switchModal: false,
+      resp: null,
       buttons: [
         {id: 1, name: 'Москве'},
         {id: 2, name: 'Санкт-Петербурге'}
@@ -118,6 +121,7 @@ export default {
       })
       .then((res) => {
         console.log(res.data)
+        this.resp = res.data
       })
       this.switchModal = false
     }
