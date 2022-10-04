@@ -81,9 +81,21 @@
     class="absolute z-40 inset-0 opacity-25 bg-black">
     </div>
 
+
+    <div class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+    v-if="answerModal">
+    <div class="relative mx-auto w-auto flex flex-col justify-center items-center">
+      <div @click="answerModal = !answerModal" class="text-end w-full cursor-pointer">X</div>
+      <div
+      class="bg-white h-auto p-6 rounded"
+      v-html="resp" v-if="resp">
+    </div>
+    </div>
+    </div>
+
     <div
-    class="relative mx-auto w-auto flex justify-center items-center"
-    v-html="resp" v-if="resp">
+    v-if="answerModal"
+    class="absolute z-40 inset-0 opacity-25 bg-black">
     </div>
 
   </div>
@@ -98,6 +110,7 @@ export default {
   data() {
     return {
       switchModal: false,
+      answerModal: false,
       resp: null,
       buttons: [
         {id: 1, name: 'Москве'},
@@ -125,10 +138,18 @@ export default {
         city_id: this.city_id
       })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         this.resp = res.data
       })
       this.switchModal = false
+      // this.answerModal = true
+      setTimeout(() => {
+        this.answerModal = true
+      }, "600"),
+      this.name = '',
+      this.phone = '',
+      this.email = '',
+      this.city_id = ''
     }
   }
 }
