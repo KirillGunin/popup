@@ -32,7 +32,8 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Имя</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="name" type="text" placeholder="Иван Иванов">
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+             focus:border-sky-500 focus:invalid:border-pink-500" v-model="name" type="text" placeholder="Иван Иванов" required>
             </div>
             <!-- Телефон -->
             <div class="mb-4 mx-3">
@@ -40,7 +41,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Телефон</label>
                 <p>*</p>
               </div>
-              <masked-inpit mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="phone" type="text" placeholder="+7 (___) ___-__-__"/>
+              <masked-inpit mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500" v-model="phone" type="text" placeholder="+7 (___) ___-__-__" required/>
             </div>
             <!-- Почта -->
             <div class="mb-4 mx-3">
@@ -48,7 +49,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Email</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="email" type="text" placeholder="you@example.com">
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500" v-model="email" type="text" placeholder="you@example.com" required>
             </div>
             <!-- Селектор -->
             <div class="mb-4 mx-3">
@@ -60,8 +61,8 @@
                 <option value="">Москва</option>
               </select> -->
 
-              <select name="city_id" id="city_id" v-model="city_id"
-              class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              <select name="city_id" id="city_id" v-model="city_id" required
+              class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500">
                 <option v-for="city in cities" :value="city.value" :key="city.id">{{city.id}}</option>
               </select>
             </div>
