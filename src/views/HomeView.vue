@@ -3,10 +3,13 @@
     <!-- Кнопки -->
     <div class="flex flex-row">
       <div v-for="button in buttons" :key="button.id">
-        <button
+        <!-- <button
         @click="switchModal = !switchModal"
         class="text-white rounded bg-[#409488] hover:bg-[#3b82f6] px-4 py-1 m-2.5"
-        >Заказать в {{button.name}}</button>
+        >Заказать в {{button.name}}</button> -->
+        <!-- <app-button @click="switchModal = !switchModal">{{button.name}}</app-button> -->
+        <app-button @click="switchModal = !switchModal" :buttonText="`Заказать в ${button.name}`"/>
+
       </div>
     </div>
 
@@ -92,9 +95,10 @@
 <script>
 import axios from 'axios'
 import MaskedInput from 'vue-masked-input'
+import AppButton from '@/components/UI/Button.vue'
 export default {
   name: 'modal',
-  components: {MaskedInput},
+  components: {MaskedInput, AppButton},
   data() {
     return {
       switchModal: false,
