@@ -1,17 +1,11 @@
 <template>
   <div >
-    <!-- <button
-    class="text-white rounded bg-[#3b82f6] px-4 py-1"
-    @click="switchModal = !switchModal">Заказать в Москву
-    </button> -->
-
     <!-- Кнопки -->
     <div class="flex flex-row">
       <div v-for="button in buttons" :key="button.id">
         <button
         @click="switchModal = !switchModal"
         class="text-white rounded bg-[#409488] hover:bg-[#3b82f6] px-4 py-1 m-2.5"
-        
         >Заказать в {{button.name}}</button>
       </div>
     </div>
@@ -25,6 +19,8 @@
         @submit.prevent="submitFirstForm"
         class="bg-white h-auto p-6 rounded">
           <h2 class="m-3 text-3xl">Заказать звонок</h2>
+          <div class="m-3 text-pink-500" v-html="err" v-if="err"></div>
+          <!-- Поля формы -->
           <div class="flex justify-end items-center flex-wrap">
             <!-- Имя -->
             <div class="mb-4 mx-3">
@@ -41,7 +37,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Телефон</label>
                 <p>*</p>
               </div>
-              <masked-inpit mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500" v-model="phone" type="text" placeholder="+7 (___) ___-__-__" required/>
+              <masked-input mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500" v-model="phone" type="text" placeholder="+7 (___) ___-__-__" required/>
             </div>
             <!-- Почта -->
             <div class="mb-4 mx-3">
@@ -57,10 +53,6 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Город</label>
                 <p>*</p>
               </div>
-              <!-- <select v-model="city_id" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="" id="">
-                <option value="">Москва</option>
-              </select> -->
-
               <select name="city_id" id="city_id" v-model="city_id" required
               class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500">
                 <option v-for="city in cities" :value="city.value" :key="city.id">{{city.id}}</option>
@@ -81,17 +73,12 @@
     v-if="switchModal"
     class="absolute z-40 inset-0 opacity-25 bg-black">
     </div>
-
-
-    <div class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
-    v-if="answerModal">
-    <div class="relative mx-auto w-auto flex flex-col justify-center items-center">
-      <div @click="answerModal = !answerModal" class="text-end w-full cursor-pointer">X</div>
-      <div
-      class="bg-white h-auto p-6 rounded"
-      v-html="resp" v-if="resp">
-    </div>
-    </div>
+    <!-- Ответ html от сервера в модальном окне -->
+    <div class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50" v-if="answerModal">
+      <div class="relative mx-auto w-auto flex flex-col justify-center items-center">
+        <div @click="answerModal = !answerModal" class="text-end w-full cursor-pointer">X</div>
+        <div class="bg-white h-auto p-6 rounded" v-html="resp" v-if="resp"></div>
+      </div>
     </div>
 
     <div
@@ -104,15 +91,16 @@
 
 <script>
 import axios from 'axios'
-import MaskedInpit from 'vue-masked-input'
+import MaskedInput from 'vue-masked-input'
 export default {
   name: 'modal',
-  components: {MaskedInpit},
+  components: {MaskedInput},
   data() {
     return {
       switchModal: false,
       answerModal: false,
       resp: null,
+      err: null,
       buttons: [
         {id: 1, name: 'Москве'},
         {id: 2, name: 'Санкт-Петербурге'}
@@ -139,18 +127,21 @@ export default {
         city_id: this.city_id
       })
       .then((res) => {
-        // console.log(res.data)
-        this.resp = res.data
+        if(res.status === 200) {
+          this.switchModal = false
+          setTimeout(() => {
+            this.answerModal = true
+          }, "600"),
+          this.name = '',
+          this.phone = '',
+          this.email = '',
+          this.city_id = '',
+          this.resp = res.data
+        }
       })
-      this.switchModal = false
-      // this.answerModal = true
-      setTimeout(() => {
-        this.answerModal = true
-      }, "600"),
-      this.name = '',
-      this.phone = '',
-      this.email = '',
-      this.city_id = ''
+      .catch((error) => {
+        this.err = error.response.data
+      })
     }
   }
 }
