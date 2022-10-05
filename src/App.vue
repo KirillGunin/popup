@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="py-10 p-20">
+    <div class="py-10 p-20 sm:p-1">
       <HomeView/>
     </div>
   </div>
