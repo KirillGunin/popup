@@ -2,7 +2,7 @@
   <div >
     <!-- Кнопки -->
     <div class="flex flex-row sm:flex-wrap">
-      <div class="sm:w-full sm:flex sm:justify-center" v-for="button in buttons" :key="button.id">
+      <div class="lg:w-auto sm:w-full sm:flex sm:justify-center" v-for="button in buttons" :key="button.id">
         <!-- <button
         @click="switchModal = !switchModal"
         class="text-white rounded bg-[#409488] hover:bg-[#3b82f6] px-4 py-1 m-2.5"
@@ -16,7 +16,7 @@
     <!-- Модальное окно с формой -->
     <div class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
     v-if="switchModal">
-      <div class="relative mx-auto w-auto flex justify-center items-center">
+      <div class="relative mx-auto lg:w-auto flex justify-center items-center">
         <!-- Форма -->
         <form
         @submit.prevent="submitFirstForm"
@@ -26,45 +26,45 @@
           <!-- Поля формы -->
           <div class="flex justify-end items-center flex-wrap sm:w-full sm:flex sm:justify-center">
             <!-- Имя -->
-            <div class="mb-4 mx-3 sm:w-full">
+            <div class="mb-4 mx-3 ">
               <div class="flex">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Имя</label>
                 <p>*</p>
               </div>
               <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
-             focus:border-sky-500 focus:invalid:border-pink-500 sm:w-full" v-model="name" type="text" placeholder="Иван Иванов" required>
+             focus:border-sky-500 focus:invalid:border-pink-500 sm:w-full lg:w-auto" v-model="name" type="text" placeholder="Иван Иванов" required>
             </div>
             <!-- Телефон -->
-            <div class="mb-4 mx-3 sm:w-full">
+            <div class="mb-4 mx-3 ">
               <div class="flex">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Телефон</label>
                 <p>*</p>
               </div>
-              <masked-input mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500 sm:w-full" v-model="phone" type="text" placeholder="+7 (___) ___-__-__" required/>
+              <masked-input mask="\+\7 (111) 111-11-11" class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500 lg:w-auto" v-model="phone" type="text" placeholder="+7 (___) ___-__-__" required/>
             </div>
             <!-- Почта -->
-            <div class="mb-4 mx-3 sm:w-full">
+            <div class="mb-4 mx-3 ">
               <div class="flex">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Email</label>
                 <p>*</p>
               </div>
-              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500 sm:w-full" v-model="email" type="text" placeholder="you@example.com" required>
+              <input class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500  lg:w-auto" v-model="email" type="text" placeholder="you@example.com" required>
             </div>
             <!-- Селектор -->
-            <div class="mb-4 mx-3 sm:w-full">
+            <div class="mb-4 mx-3 ">
               <div class="flex">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Город</label>
                 <p>*</p>
               </div>
               <select name="city_id" id="city_id" v-model="city_id" required
-              class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500 sm:w-full">
+              class="shadow appearance-none border rounded w-44 py-2 px-3 h-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:invalid:border-pink-500  lg:w-auto">
                 <option v-for="city in cities" :value="city.value" :key="city.id">{{city.id}}</option>
               </select>
             </div>
           </div>
 
-          <div class="flex justify-end items-center flex-wrap sm:w-full sm:flex sm:justify-center">
-            <button class="bg-[#4ca44b] hover:bg-blue-700 text-white font-light text-lg py-2 px-4 mx-3 w-44 h-10 rounded focus:outline-none focus:shadow-outline flex justify-center items-center sm:w-full" type="submit">
+          <div class="flex justify-end items-center flex-wrap sm:flex sm:justify-center lg:justify-end lg:flex-nowrap;">
+            <button class="bg-[#4ca44b] hover:bg-blue-700 text-white font-light text-lg py-2 px-4 mx-3 w-44 h-10 rounded focus:outline-none focus:shadow-outline flex justify-center items-center" type="submit">
               Отправить
             </button>
           </div>
